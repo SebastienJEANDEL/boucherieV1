@@ -2,7 +2,7 @@
 
 namespace Oshop\Controllers;
 
-use Oshop\Models\Category;
+use Oshop\Models\Type;
 
 class MainController extends CoreController
 {
@@ -18,11 +18,11 @@ class MainController extends CoreController
     public function home()
     {
         // Récupérer les informations nécessaires pour cette page
-        $category = new Category();
-        $homeCategories = $category->findHomeCategories();
+        $types = new Type();
+        $homeTypes = $types->findHomeTypes();
 
         // Délègue l'affichage à la méthode "show" du MainController
-        $this->show('home', ['home_categories' => $homeCategories]);
+        $this->show('home', ['home_types' => $homeTypes]);
     }
 
     // Méthode chargée de gérer la page mentions légales

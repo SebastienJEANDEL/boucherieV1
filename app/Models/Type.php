@@ -58,4 +58,23 @@ class Type extends CoreModel
         // On retourne le résultat
         return $type;
     }
+    public function findHomeTypes()
+    {
+        // On récupère la connexion PDO
+        $pdoDBConnexion = Database::getPDO();
+
+        // On écrit notre requête SQL
+        $sql = 'SELECT * 
+                FROM `type`
+               ';
+
+        // On exécute la requête
+        $pdoStatement = $pdoDBConnexion->query($sql);
+        
+        // Récupération du résultat
+        $typesListForHome = $pdoStatement->fetchAll(PDO::FETCH_CLASS, self::class);
+
+        // Retourner le résultat
+        return  $typesListForHome;
+    }
 } 
