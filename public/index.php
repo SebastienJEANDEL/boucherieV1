@@ -1,55 +1,16 @@
 <?php 
 
-// Avec le fichier .htaccess mis en place à la racine du dépôt,
-// on fait en sorte de rediriger toutes les URLs vers index.php
-// On a ainsi une sorte d'entonnoir qui renvoie tout vers le même
-// fichier => index.php
-// On appelle ce fichier le Front Controller.
-// Toutes les pages passent forcément par ce Front Controller.
-
 // ----------------------------------------------------------------
 // Inclusion des classes
 // ----------------------------------------------------------------
 
 require __DIR__ . '/../vendor/autoload.php';
 
-// function autoloadCustom($classNameToLoad)
-// {
-//     // $classNameToLoad = 'CoreController';
-//     dump($classNameToLoad);
 
-//     // s'il y a 'Controller' dans le nom de la classe $classNameToLoad
-//     // alors on va charger le fichier depuis le répertoire app/Controllers
-//     require __DIR__ . '/../app/Controllers/' . $classNameToLoad . '.php';
-//     // sinon s'il y a 'Model' dans le nom de la classe $classNameToLoad
-//     // alors on va charger le fichier depuis le répertoire app/Models
-//     // mais il faudrait alors avoir renommmer tous nos models pour qu'il
-//     // contiennent le mot Model
-// }
-
-// // Avec spl_autoload_register, on indique à PHP le nom d'une fonction
-// // à appeler si jamais il ne trouve pas une classe
-// spl_autoload_register('autoloadCustom');
-
-// ----------------------------------------------------------------
-// Préparation d'AltoRouter
 // ----------------------------------------------------------------
 $router = new AltoRouter();
 
-// Comme la racine de notre site Oshop n'est pas située à la racine du serveur Web Apache
-// (qui est directement http://localhost qui correspond au répertoire local /var/www/html)
-// => on doit préciser où se situe la racine du site Oshop pour permettre à AltoRouter 
-// d'analyser la bonne partie de l'URL : ce qui se trouve après 'public'
-// Par exemple pour l'URL : http://localhost/Curie/S05/S05-projet-oShop-StephaneP43/public/catalogue/categorie
-// on veut qu'AltoRouter analyse la partie après /public => /catalogue/categorie
-// On pourrait donner la racine de notre en dur avec la méthode setBasePath d'AltoRouter comme ceci :
-// $router->setBasePath('/Curie/S05/S05-projet-oShop-StephaneP43/public');
-// MAIS malheureusement, on a tous des chemins vers notre répertoire public qui sont potentiellement
-// différent.
-// Heureusement, avec $_SERVER['BASE_URI'] (dont la valeur est calculée
-// dans le fichier .htaccess du répertoire /public)
-// on a une valeur dynamique qui fonctionnera chez tout le monde
-// dump($_SERVER);
+
 $router->setBasePath($_SERVER['BASE_URI']);
 
 // ----------------------------------------------------------------
@@ -60,8 +21,7 @@ $router->setBasePath($_SERVER['BASE_URI']);
 $router->map(
     'GET', // méthode HTTP qui est autorisée pour cette route
     '/', // la partie d'URL (après la racine du site) qui correspond à la page demandée
-    // les informations qu'on récupérera plus tard quand AltoRouter
-    // aura trouvé cette route
+    
     [
         'controller' => 'MainController',
         'method' => 'home'
@@ -80,52 +40,58 @@ $router->map(
     'main-legal-mentions'
 );
 
-// Ajout de la route pour les pages catégories
-$router->map(
-    'GET',
-    // on précise la partie dynamique entre crochets :
-    // le i indique qu'on cherche un entier (integer)
-    // id correspond au nom donné à la valeur extraite de l'URL
-    // voir : https://altorouter.com/usage/mapping-routes.html
-    '/catalogue/categorie/[i:id]',
-    [
-        'controller' => 'CatalogController',
-        'method' => 'category'
-    ],
-    'catalog-category'
-);
-
-// Ajout de la route pour les pages types
+// Ajout de la route pour le lien types dans les navBar
 $router->map(
     'GET',
     '/catalogue/type/[i:id]',
     [
-        'controller' => 'CatalogController',
+        'controller' => 'MainController',
         'method' => 'type'
     ],
-    'catalog-type'
+    'main-type'
 );
 
-// Ajout de la route pour les pages marques
+// Ajout de la route pour les pages raceList
 $router->map(
     'GET',
-    '/catalogue/marque/[i:id]',
+    '/catalogue/race/[i:id]',
     [
         'controller' => 'CatalogController',
-        'method' => 'brand'
+        'method' => 'race'
     ],
-    'catalog-brand'
+    'catalog-race'
 );
 
-// Ajout de la route pour les pages produits
+// Ajout de la route pour les pages animalList
 $router->map(
     'GET',
-    '/catalogue/produit/[i:id]',
+    '/catalogue/animalList/[i:id]',
     [
         'controller' => 'CatalogController',
-        'method' => 'product'
+        'method' => 'animalList'
     ],
-    'catalog-product'
+    'catalog-animalList'
+);
+
+// Ajout de la route pour les pages animalDetails
+$router->map(
+    'GET',
+    '/catalogue/animalDetails/[i:id]',
+    [
+        'controller' => 'CatalogController',
+        'method' => 'animalDetails'
+    ],
+    'catalog-animalDetails'
+);
+// Ajout de la route pour la page cartDetail
+$router->map(
+    'GET',
+    '/topping/cartDetail/[i:id]',
+    [
+        'controller' => 'ToppingController',
+        'method' => 'animalDetails'
+    ],
+    'topping-cartDetail'
 );
 
 // Ajout dd'une route pour nos tests pendant les développements

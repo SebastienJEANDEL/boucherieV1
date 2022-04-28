@@ -8,12 +8,12 @@ use PDO;
 // Une classe "Model" permet de définir le plan de fabrication
 // permettant de réprésenter une marque dont les informations
 // seront issues de la table 'brand'
-class Brand extends CoreModel
+class Race extends CoreModel
 {
     /**
-     * Get all brands
+     * Get all races
      *
-     * @return Brand[]
+     * @return Race[]
      */
     public function findAll()
     {
@@ -27,16 +27,16 @@ class Brand extends CoreModel
         $pdoStatement = $pdoDBConnexion->query($sql);
 
         // On récupère les données
-        $brandsList = $pdoStatement->fetchAll(PDO::FETCH_CLASS, self::class);
+        $racesList = $pdoStatement->fetchAll(PDO::FETCH_CLASS, self::class);
 
         // On retourne le résultat
-        return $brandsList;
+        return $racesList;
     }
 
     /**
-     * Get a brand from an id
+     * Get a race from an id
      *
-     * @return Brand
+     * @return Race
      */
     public function find($id)
     {
@@ -50,9 +50,9 @@ class Brand extends CoreModel
         $pdoStatement = $pdoDBConnexion->query($sql);
 
         // On récupère les données
-        $brand = $pdoStatement->fetchObject(self::class);
+        $race = $pdoStatement->fetchObject(self::class);
 
         // On retourne le résultat
-        return $brand;
+        return $race;
     }
 }

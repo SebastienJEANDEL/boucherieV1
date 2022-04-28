@@ -5,7 +5,7 @@ namespace Oshop\Models;
 use Oshop\Utils\Database;
 use PDO;
 
-class Product extends CoreModel
+class Animal extends CoreModel
 {
     private $description;
     private $picture;
@@ -147,7 +147,7 @@ class Product extends CoreModel
     /**
      * Get all products
      *
-     * @return Product[]
+     * @return Animal[]
      */
     public function findAll()
     {
@@ -161,16 +161,16 @@ class Product extends CoreModel
         $pdoStatement = $pdoDBConnexion->query($sql);
 
         // On récupère les données
-        $productsList = $pdoStatement->fetchAll(PDO::FETCH_CLASS, self::class);
+        $animalsList = $pdoStatement->fetchAll(PDO::FETCH_CLASS, self::class);
 
         // On retourne le résultat
-        return $productsList;
+        return $animalsList;
     }
 
     /**
-     * Get a product from an id
+     * Get an animal from an id
      *
-     * @return Product
+     * @return Animal
      */
     public function find($id)
     {
@@ -178,16 +178,16 @@ class Product extends CoreModel
         $pdoDBConnexion = Database::getPDO();
 
         // On écrit notre requête SQL
-        $sql = 'SELECT * FROM `product` WHERE `id` = ' . $id;
+        $sql = 'SELECT * FROM `animal` WHERE `id` = ' . $id;
 
         // On exécute la requête
         $pdoStatement = $pdoDBConnexion->query($sql);
 
         // On récupère les données
-        $product = $pdoStatement->fetchObject(self::class);
+        $animal = $pdoStatement->fetchObject(self::class);
 
         // On retourne le résultat
-        return $product;
+        return $animal;
     }
 
     /**

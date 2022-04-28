@@ -5,7 +5,7 @@ namespace Oshop\Models;
 use Oshop\Utils\Database;
 use PDO;
 
-class Category extends CoreModel
+class Producer extends CoreModel
 {
     private $subtitle;
     private $picture;
@@ -65,7 +65,7 @@ class Category extends CoreModel
     /**
      * Get all categories
      *
-     * @return Category[]
+     * @return Producer[]
      */
     public function findAll()
     {
@@ -92,7 +92,7 @@ class Category extends CoreModel
     /**
      * Get a category from an id
      *
-     * @return Category
+     * @return Producer
      */
     public function find($id)
     {
