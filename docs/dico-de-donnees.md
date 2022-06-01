@@ -5,7 +5,7 @@
 |Champ|Type|Spécificités|Description|
 |-|-|-|-|
 |id|INT|PRIMARY KEY, NOT NULL, UNSIGNED, AUTO_INCREMENT|L'identifiant de notre produit|
-|name|VARCHAR(64)|NOT NULL|Le nom du produit|
+|gitname|VARCHAR(64)|NOT NULL|Le nom du produit|
 |description|TEXT|NULL|La description du produit|
 |picture|VARCHAR(128)|NULL|L'URL de l'image du produit|
 |price|DECIMAL(10,2)|NOT NULL, DEFAULT 0|Le prix du produit|
