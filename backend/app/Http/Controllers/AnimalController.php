@@ -49,6 +49,8 @@ class AnimalController extends Controller
 
         // Si on a un résultat
         if (!empty($item)) {
+
+
             // Retrieve all related Reviews (thanks to Relationships)
             $pieces = $item->pieces->load(['animal']);
 

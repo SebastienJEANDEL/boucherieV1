@@ -23,6 +23,8 @@ use Illuminate\Support\Facades\Route;
 Route::get('especes', [EspeceController::class, 'list'])
     ->name('videogames-list');
 Route::get('especes/{id}', [EspeceController::class, 'read']);
+Route::get('especes/{id}/races', [EspeceController::class, 'getRaces'])
+    ->name('espece-getraces');
 
 
 // --------- ANIMALS ---------

@@ -33,4 +33,27 @@ class EspeceController extends Controller
             return response('', 404);
         }
     }
+     /**
+     * /especes/[id]/raceces
+     * GET
+     */
+    public function getRaces($id)
+    {
+        // Get item or send 404 response if not
+        $item = Espece::find($id);
+
+        // Si on a un résultat
+        if (!empty($item)) {
+
+
+            // Retrieve all related Reviews (thanks to Relationships)
+            $races = $item->races->load(['espece']);
+
+            // Return JSON of this list
+            return response()->json($races, 200);
+        } else { // Sinon
+            // HTTP status code 404 Not Found
+            return response('', 404);
+        }
+    }
 }

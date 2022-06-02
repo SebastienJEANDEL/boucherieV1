@@ -19,6 +19,6 @@ class Race extends Model
      */
     public function espece()
     {
-        return $this->hasOne(Espece::class);
+        return $this->belongsTo(Espece::class);
     }
 }
