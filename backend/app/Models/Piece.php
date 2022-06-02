@@ -7,10 +7,10 @@ use Illuminate\Database\Eloquent\Model;
 class Piece extends Model
 {
     /**
-     * Get all related animals
+     * Get all related animal
      */
-    public function animals()
+    public function animal()
     {
-        return $this->hasMany(Animal::class);
+        return $this->belongsTo(Animal::class);
     }
 }

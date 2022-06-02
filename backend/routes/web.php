@@ -29,7 +29,9 @@ Route::get('especes/{id}', [EspeceController::class, 'read']);
 
 Route::get('animals', [AnimalController::class, 'list'])
     ->name('animals-list');
-Route::get('animals/{id}', [AnimalController::class, 'read']);
+Route::get('animals/{id}', [AnimalController::class, 'read'])->name('animal-read');
+Route::get('animals/{id}/pieces', [AnimalController::class, 'getPieces'])
+    ->name('animal-getpieces');
 
 // --------- RACES ---------
 Route::get('races', [RaceController::class, 'list'])
@@ -44,7 +46,7 @@ Route::get('producers/{id}', [ProducerController::class, 'read']);
 // --------- PIECES ---------
 
 Route::get('pieces', [PieceController::class, 'list'])
-    ->name('pieces-list');
+    ->name('piece-list');
 Route::get('/pieces/{id}', [PieceController::class, 'read']);
 Route::post('pieces', [PieceController::class, 'create'])
     ->name('pieces-create');
