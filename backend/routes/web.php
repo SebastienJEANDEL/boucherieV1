@@ -1,7 +1,10 @@
 <?php
+use App\Http\Controllers\PieceController;
+use App\Http\Controllers\AnimalController;
+use App\Http\Controllers\ProducerController;
+use App\Http\Controllers\RaceController;
+use App\Http\Controllers\EspeceController;
 
-use App\Http\Controllers\ReviewController;
-use App\Http\Controllers\VideogameController;
 use Illuminate\Support\Facades\Route;
 
 /*
@@ -15,22 +18,33 @@ use Illuminate\Support\Facades\Route;
 |
 */
 
-// --------- VIDEOGAMES ---------
+// --------- ESPECES ---------
 
-Route::get('videogames', [VideogameController::class, 'list'])
+Route::get('especes', [EspeceController::class, 'list'])
     ->name('videogames-list');
-
-Route::post('videogames', [VideogameController::class, 'create'])
-    ->name('videogames-create');
-
-Route::get('videogames/{id}', [VideogameController::class, 'read'])
-    ->name('videogame-read');
-
-Route::get('videogames/{id}/reviews', [VideogameController::class, 'getReviews'])
-    ->name('videogame-getreviews');
+Route::get('especes/{id}', [EspeceController::class, 'read']);
 
 
-// --------- REVIEWS ---------
+// --------- ANIMALS ---------
 
-Route::get('reviews', [ReviewController::class, 'list'])
-    ->name('review-list');
+Route::get('animals', [AnimalController::class, 'list'])
+    ->name('animals-list');
+Route::get('animals/{id}', [AnimalController::class, 'read']);
+
+// --------- RACES ---------
+Route::get('races', [RaceController::class, 'list'])
+    ->name('races-list');
+Route::get('races/{id}', [RaceController::class, 'read']);
+
+// --------- PRODUCERS ---------
+Route::get('producers', [ProducerController::class, 'list'])
+    ->name('producers-list');
+Route::get('producers/{id}', [ProducerController::class, 'read']);
+
+// --------- PIECES ---------
+
+Route::get('pieces', [PieceController::class, 'list'])
+    ->name('pieces-list');
+Route::get('/pieces/{id}', [PieceController::class, 'read']);
+Route::post('pieces', [PieceController::class, 'create'])
+    ->name('pieces-create');
