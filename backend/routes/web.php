@@ -52,3 +52,8 @@ Route::get('pieces', [PieceController::class, 'list'])
 Route::get('/pieces/{id}', [PieceController::class, 'read']);
 Route::post('pieces', [PieceController::class, 'create'])
     ->name('pieces-create');
+
+    // --------- PROMOTIONS ---------
+
+Route::get('/promotions', [PieceController::class, 'getPromotions'])
+    ->name('pieces-promotions');

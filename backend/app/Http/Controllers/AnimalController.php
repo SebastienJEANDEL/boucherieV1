@@ -3,6 +3,7 @@
 namespace App\Http\Controllers;
 
 use App\Models\Animal;
+use App\Models\Piece;
 
 
 class AnimalController extends Controller
@@ -61,4 +62,5 @@ class AnimalController extends Controller
             return response('', 404);
         }
     }
+
 }

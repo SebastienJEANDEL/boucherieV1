@@ -4,9 +4,10 @@ const app = {
     init: function() {
         console.log('app.init launched');
         // all the object we want to init
-        tasksList.init();
-        newTaskForm.init();
-        categoriesList.init();
+        racesList.init();
+        especesList.init();
+        promotionsList.init();
+        producersList.init();
     }
 }
 

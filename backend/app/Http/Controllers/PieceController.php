@@ -48,6 +48,26 @@ class PieceController extends Controller
             return response('', 404);
         }
     }
+/**
+     * /pieces/promotions
+     * GET
+     */
+    public function getPromotions()
+    {
+        var_dump('la requete va partir');
+        // Get item or send 404 response if not
+        $promotions = Piece::where('status', 2)->get();
 
+        // Si on a un résultat
+        if (!empty($promotions)) {
+
+            // Return JSON of this list
+            return response()->json($promotions, 200);
+        } else { // Sinon
+            var_dump('la requete ne marche pas');
+            // HTTP status code 404 Not Found
+            return response('', 404);
+        }
+    }
 
 }
