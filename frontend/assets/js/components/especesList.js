@@ -11,6 +11,7 @@ const especesList = {
         request = fetch(app.apiRootUrl + 'especes', fetchOptions);
         request.then(
             function(response) {
+               
                 return response.json();
             }
         )
@@ -18,7 +19,7 @@ const especesList = {
             function(jsonResponse) {
                 // iterate over all tasks
                 jsonResponse.forEach(function(oneEspece) {
-                    //console.log(oneEspece);
+                   // console.log(oneEspece);
                     // Creation of DOM task element
                     //const newTask = task.createTaskElement(oneTask.title, oneTask.category.name, oneTask.id, oneTask.status);
 

@@ -5,15 +5,15 @@ const promotionsList = {
         promotionsList.loadPromotionsFromAPI();
     },
     loadPromotionsFromAPI: function() {
-        console.log('chargement de la liste des animaux en promo');
+      
         let fetchOptions = {
             method: 'GET'
         };
         request = fetch(app.apiRootUrl + 'promotions', fetchOptions);
         request.then(
             function(response) {
-                console.log(response.json());
-               // return response.json();
+               
+                return response.json();
             }
         )
         .then(

@@ -56,7 +56,9 @@ class PieceController extends Controller
     {
 
         // Get item or send 404 response if not
-        $promotions = Piece::all()->where('status', 2);
+        $promotions = Piece::select()->where('status', 2)->get();
+
+        return response()->json($promotions, 200);
 
         // Si on a un résultat
         if (!empty($promotions)) {
@@ -68,6 +70,7 @@ class PieceController extends Controller
             // HTTP status code 404 Not Found
             return response('', 404);
         }
+
     }
 
 }
