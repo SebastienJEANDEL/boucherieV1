@@ -54,13 +54,13 @@ class PieceController extends Controller
      */
     public function getPromotions()
     {
-        var_dump('la requete va partir');
+
         // Get item or send 404 response if not
-        $promotions = Piece::where('status', 2)->get();
+        $promotions = Piece::all()->where('status', 2);
 
         // Si on a un résultat
         if (!empty($promotions)) {
-
+           // dd(response()->json($promotions));
             // Return JSON of this list
             return response()->json($promotions, 200);
         } else { // Sinon

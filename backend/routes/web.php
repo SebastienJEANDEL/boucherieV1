@@ -50,8 +50,8 @@ Route::get('producers/{id}', [ProducerController::class, 'read']);
 Route::get('pieces', [PieceController::class, 'list'])
     ->name('piece-list');
 Route::get('/pieces/{id}', [PieceController::class, 'read']);
-Route::post('pieces', [PieceController::class, 'create'])
-    ->name('pieces-create');
+//Route::post('pieces', [PieceController::class, 'create'])
+//    ->name('pieces-create');
 
     // --------- PROMOTIONS ---------
 
