@@ -4,6 +4,7 @@ const app = {
     init: function() {
         console.log('app.init launched');
         // all the object we want to init
+        
         racesList.init();
         especesList.init();
         promotionsList.init();

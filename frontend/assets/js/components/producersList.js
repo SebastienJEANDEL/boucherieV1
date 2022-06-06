@@ -18,7 +18,7 @@ const producersList = {
             function(jsonResponse) {
                 // iterate over all tasks
                 jsonResponse.forEach(function(oneProducer) {
-                    //console.log(oneProducer);
+                   // console.log(oneProducer);
                     // Creation of DOM task element
                     //const newTask = task.createTaskElement(oneTask.title, oneTask.category.name, oneTask.id, oneTask.status);
 

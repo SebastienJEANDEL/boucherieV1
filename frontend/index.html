@@ -11,6 +11,8 @@
 <script src="https://cdn.jsdelivr.net/npm/bootstrap@5.2.0-beta1/dist/js/bootstrap.bundle.min.js" integrity="sha384-pprn3073KE6tl6bjs2QrFaJGz5/SUsLqktiwsUTF55Jfv3qYSDhgCecCxMW52nD2" crossorigin="anonymous"></script>
   
   <!--inclusions de mes fichier js-->
+  
+  <script defer src="assets/js/components/promotion.js"></script>
   <script defer src="assets/js/components/racesList.js"></script>
   <script defer src="assets/js/components/especesList.js"></script>
   <script defer src="assets/js/components/promotionsList.js"></script>
@@ -39,16 +41,16 @@
           <div class="collapse navbar-collapse" id="navbarNav">
             <ul class="navbar-nav">
               <li class="nav-item">
-                <a class="nav-link active" aria-current="page" href="../index.html">Acceuil</a>
+                <a class="nav-link active" aria-current="page" href="#">Acceuil</a>
               </li>
               <li class="nav-item">
-                <a class="nav-link" href="./assets/vues/espece/listEspeces.html">Espèces</a>
+                <a class="nav-link" href="#">Espèces</a>
               </li>
               <li class="nav-item">
                 <a class="nav-link" href="#">Promotions</a>
               </li>
               <li class="nav-item">
-                <a class="nav-link disabled">Producteurs</a>
+                <a class="nav-link " href="#">Producteurs</a>
               </li>
             </ul>
           </div>
@@ -59,11 +61,35 @@
     </header>
 
     <main>
-      <!--un titre h2 qui indique la page où l'on se trouve-->
-      <h2>Bienvenue sur notre page d'acceuil</h2>
-      <!--carousel de photos-->
-      <!--trois cases 1/choix espèces 2/espace promotion 3/producteurs-->
-      <!--un texte décrivant qui nous sommes, les avantages, la sécurité-->
+     <!-- <template id="main-acceuil"></template> -->
+                <!--un titre h2 qui indique la page où l'on se trouve-->
+        <h2>Bienvenue sur notre page d'acceuil</h2>
+       
+        
+          <p>
+          voici nos promotions
+          </p>
+          <ul id="promotions-list" class="promotions">
+            <template id="promotion-template">
+              <li>
+                aujourd'hui <span id="promotion-name" >le produit</span> provenant de <span id="promotion-animal-name">l'animal</span> est au prix de <span id="promotion-price">le prix</span>
+              </li>
+            </template>
+
+
+          </ul>
+          <p>
+          voici nos especes
+          </p>
+          <ul id="especes-list"></ul>
+          <p>
+          voici los producteurs
+          </p>
+          <ul id="producers-list"></ul>
+        <!--carousel de photos-->
+        <!--trois cases 1/choix espèces 2/espace promotion 3/producteurs-->
+        <!--un texte décrivant qui nous sommes, les avantages, la sécurité-->
+      
     </main>
 
     <footer>
