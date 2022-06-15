@@ -7,7 +7,7 @@ const promotion = {
  
 
     createPromotionElement: function(newPromotionTitle, newPromotionId, newPromotionAnimal, newPromotionPrice) {
-        console.log('Creation de la promotion en cours');
+      //  console.log('Creation de la promotion en cours');
 
         // Get the template, then get the promotion content. Then we clone the task content and finally we get the DOM element, ready to use.
         const promotionCloneElement = document.querySelector('#promotion-template').content.cloneNode(true).firstElementChild;

@@ -21,7 +21,7 @@ const promotionsList = {
                
                 // iterate over all tasks
                 jsonResponse.forEach(function(onePromotion) {
-                    console.log(onePromotion);
+                   // console.log(onePromotion);
                     // Creation of DOM promotion element
                     const newPromotion = promotion.createPromotionElement(onePromotion.piece_name, onePromotion.id, onePromotion.animal_id, onePromotion.price );
 
@@ -41,6 +41,6 @@ const promotionsList = {
         promotionsListContainer.prepend(promotionElement);
         
         // Declaring eventListeners for the new promotion
-       // promotion.bindTaskEvents(promotionElement);
+       // promotion.bindPromotionEvents(promotionElement);
     },
 }

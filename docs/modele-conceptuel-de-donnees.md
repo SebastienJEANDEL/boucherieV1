@@ -1,17 +1,33 @@
 # MCD à visualiser sur http://mocodo.wingi.net/
 
 ```
-PIECE: piece code, animal code, piece category, piece name, piece weight
-made, 0N PRODUCER, 11 ANIMAL, 11 PIECE, 11 ANIMAL
 PRODUCER: producer code, name, picture, adress, contact, description
+Is a, 0N BREED, 11 ANIMAL
+BREED: breed code, name, picture, advantage, specie code
 
-ANIMAL: animal code, product name, description, picture, health sheet, date of birth, slaughter date, producer code, race code
-TYPE: type code, name, picture,
-is tagged,0N PRODUCER, N1 RACE,0N PRODUCER, 1N TYPE
+Product By, 11 ANIMAL, 0N PRODUCER
+ANIMAL: animal code, name, picture, description, health sheet, date of birth, slaughter date, producer code, race code
+Is Tagged, 11 BREED, 0N SPECIE
 
-is a, 0N TYPE, 11 ANIMAL, 0N RACE, 11 ANIMAL
-RACE: race code, name, advantages,type_id
+PIECE: piece code, name, price, category, weight, status, publishedAt, animal code
+Belongs to, 11 PIECE , ON ANIMAL
+SPECIE: specie code, name, picture, description
 
+```
+# MCD avec la relation manyToMany producer-Breed
+```
+PRODUCER: producer code, name, picture, adress, contact, description
+Distribute, 1N PRODUCER, 1N PRODUCT-RELATION
+PRODUCT-RELATION: relation code, producer code, breed code
+Distributed By, 1N BREED, 1N PRODUCT-RELATION
 
+Produced By, 11 ANIMAL, 0N PRODUCER
+ANIMAL: animal code, name, picture, description, health sheet, date of birth, slaughter date, producer code, race code
+Is a, 0N BREED, 11 ANIMAL
+BREED: breed code, name, picture, advantage, specie code
 
+PIECE: piece code, name, price, category, weight, status, publishedAt, animal code
+Belongs to, 11 PIECE , ON ANIMAL
+SPECIE: specie code, name, picture, description
+Is Tagged, 11 BREED, 0N SPECIE
 ```

@@ -57,8 +57,13 @@ class PieceController extends Controller
 
         // Get item or send 404 response if not
         $promotions = Piece::select()->where('status', 2)->get();
-
-        return response()->json($promotions, 200);
+        $data=[];
+        $animal = 'Michel le cochon';
+        $data= [
+            $promotions,
+            $animal
+        ];
+        return response()->json($data, 200);
 
         // Si on a un résultat
         if (!empty($promotions)) {
