@@ -3,6 +3,8 @@
 namespace App\Entity;
 
 use App\Repository\SpecieRepository;
+use Doctrine\Common\Collections\ArrayCollection;
+use Doctrine\Common\Collections\Collection;
 use Doctrine\ORM\Mapping as ORM;
 
 /**
@@ -31,6 +33,16 @@ class Specie
      * @ORM\Column(type="string", length=255)
      */
     private $description;
+
+    /**
+     * @ORM\OneToMany(targetEntity=Breed::class, mappedBy="specie")
+     */
+    private $breeds;
+
+    public function __construct()
+    {
+        $this->breeds = new ArrayCollection();
+    }
 
     public function getId(): ?int
     {
@@ -69,6 +81,36 @@ class Specie
     public function setDescription(string $description): self
     {
         $this->description = $description;
+
+        return $this;
+    }
+
+    /**
+     * @return Collection<int, Breed>
+     */
+    public function getBreeds(): Collection
+    {
+        return $this->breeds;
+    }
+
+    public function addBreed(Breed $breed): self
+    {
+        if (!$this->breeds->contains($breed)) {
+            $this->breeds[] = $breed;
+            $breed->setSpecie($this);
+        }
+
+        return $this;
+    }
+
+    public function removeBreed(Breed $breed): self
+    {
+        if ($this->breeds->removeElement($breed)) {
+            // set the owning side to null (unless already changed)
+            if ($breed->getSpecie() === $this) {
+                $breed->setSpecie(null);
+            }
+        }
 
         return $this;
     }

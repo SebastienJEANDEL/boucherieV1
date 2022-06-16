@@ -3,6 +3,8 @@
 namespace App\Entity;
 
 use App\Repository\BreedRepository;
+use Doctrine\Common\Collections\ArrayCollection;
+use Doctrine\Common\Collections\Collection;
 use Doctrine\ORM\Mapping as ORM;
 
 /**
@@ -31,6 +33,21 @@ class Breed
      * @ORM\Column(type="string", length=255)
      */
     private $advantage;
+
+    /**
+     * @ORM\OneToMany(targetEntity=Animal::class, mappedBy="breed")
+     */
+    private $animals;
+
+    /**
+     * @ORM\ManyToOne(targetEntity=Specie::class, inversedBy="breeds")
+     */
+    private $specie;
+
+    public function __construct()
+    {
+        $this->animals = new ArrayCollection();
+    }
 
     public function getId(): ?int
     {
@@ -69,6 +86,48 @@ class Breed
     public function setAdvantage(string $advantage): self
     {
         $this->advantage = $advantage;
+
+        return $this;
+    }
+
+    /**
+     * @return Collection<int, Animal>
+     */
+    public function getAnimals(): Collection
+    {
+        return $this->animals;
+    }
+
+    public function addAnimal(Animal $animal): self
+    {
+        if (!$this->animals->contains($animal)) {
+            $this->animals[] = $animal;
+            $animal->setBreed($this);
+        }
+
+        return $this;
+    }
+
+    public function removeAnimal(Animal $animal): self
+    {
+        if ($this->animals->removeElement($animal)) {
+            // set the owning side to null (unless already changed)
+            if ($animal->getBreed() === $this) {
+                $animal->setBreed(null);
+            }
+        }
+
+        return $this;
+    }
+
+    public function getSpecie(): ?Specie
+    {
+        return $this->specie;
+    }
+
+    public function setSpecie(?Specie $specie): self
+    {
+        $this->specie = $specie;
 
         return $this;
     }

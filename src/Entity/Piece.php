@@ -47,6 +47,12 @@ class Piece
      */
     private $publishedAt;
 
+    /**
+     * @ORM\ManyToOne(targetEntity=Animal::class, inversedBy="pieces")
+     * @ORM\JoinColumn(nullable=false)
+     */
+    private $animal;
+
     public function getId(): ?int
     {
         return $this->id;
@@ -120,6 +126,18 @@ class Piece
     public function setPublishedAt(\DateTimeInterface $publishedAt): self
     {
         $this->publishedAt = $publishedAt;
+
+        return $this;
+    }
+
+    public function getAnimal(): ?Animal
+    {
+        return $this->animal;
+    }
+
+    public function setAnimal(?Animal $animal): self
+    {
+        $this->animal = $animal;
 
         return $this;
     }

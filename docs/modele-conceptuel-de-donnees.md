@@ -5,7 +5,7 @@ PRODUCER: producer code, name, picture, adress, contact, description
 Distribute, 1N PRODUCER, 1N BREED : relation code, producer , breed
 
 Produced By, 11 ANIMAL, 0N PRODUCER
-ANIMAL: animal code, name, picture, description, health sheet, date of birth, slaughter date
+ANIMAL: animal code, name, picture, description, health sheet, birthdate, slaughter date
 Is a, 0N BREED, 11 ANIMAL
 BREED: breed code, name, picture, advantage
 

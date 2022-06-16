@@ -3,6 +3,8 @@
 namespace App\Entity;
 
 use App\Repository\AnimalRepository;
+use Doctrine\Common\Collections\ArrayCollection;
+use Doctrine\Common\Collections\Collection;
 use Doctrine\ORM\Mapping as ORM;
 
 /**
@@ -23,7 +25,7 @@ class Animal
     private $name;
 
     /**
-     * @ORM\Column(type="string", length=255, nullable=true)
+     * @ORM\Column(type="string", length=255)
      */
     private $picture;
 
@@ -46,6 +48,26 @@ class Animal
      * @ORM\Column(type="date")
      */
     private $slaughter_date;
+
+    /**
+     * @ORM\OneToMany(targetEntity=Piece::class, mappedBy="animal", orphanRemoval=true)
+     */
+    private $pieces;
+
+    /**
+     * @ORM\ManyToOne(targetEntity=Producer::class, inversedBy="animals")
+     */
+    private $producer;
+
+    /**
+     * @ORM\ManyToOne(targetEntity=Breed::class, inversedBy="animals")
+     */
+    private $breed;
+
+    public function __construct()
+    {
+        $this->pieces = new ArrayCollection();
+    }
 
     public function getId(): ?int
     {
@@ -120,6 +142,60 @@ class Animal
     public function setSlaughterDate(\DateTimeInterface $slaughter_date): self
     {
         $this->slaughter_date = $slaughter_date;
+
+        return $this;
+    }
+
+    /**
+     * @return Collection<int, Piece>
+     */
+    public function getPieces(): Collection
+    {
+        return $this->pieces;
+    }
+
+    public function addPiece(Piece $piece): self
+    {
+        if (!$this->pieces->contains($piece)) {
+            $this->pieces[] = $piece;
+            $piece->setAnimal($this);
+        }
+
+        return $this;
+    }
+
+    public function removePiece(Piece $piece): self
+    {
+        if ($this->pieces->removeElement($piece)) {
+            // set the owning side to null (unless already changed)
+            if ($piece->getAnimal() === $this) {
+                $piece->setAnimal(null);
+            }
+        }
+
+        return $this;
+    }
+
+    public function getProducer(): ?Producer
+    {
+        return $this->producer;
+    }
+
+    public function setProducer(?Producer $producer): self
+    {
+        $this->producer = $producer;
+
+        return $this;
+    }
+
+    public function getBreed(): ?Breed
+    {
+        return $this->breed;
+    }
+
+    public function setBreed(?Breed $breed): self
+    {
+        $this->breed = $breed;
 
         return $this;
     }
