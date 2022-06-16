@@ -49,9 +49,15 @@ class Producer
      */
     private $animals;
 
+    /**
+     * @ORM\ManyToMany(targetEntity=Breed::class, inversedBy="producers")
+     */
+    private $breeds;
+
     public function __construct()
     {
         $this->animals = new ArrayCollection();
+        $this->breeds = new ArrayCollection();
     }
 
     public function getId(): ?int
@@ -145,6 +151,30 @@ class Producer
                 $animal->setProducer(null);
             }
         }
+
+        return $this;
+    }
+
+    /**
+     * @return Collection<int, Breed>
+     */
+    public function getBreeds(): Collection
+    {
+        return $this->breeds;
+    }
+
+    public function addBreed(Breed $breed): self
+    {
+        if (!$this->breeds->contains($breed)) {
+            $this->breeds[] = $breed;
+        }
+
+        return $this;
+    }
+
+    public function removeBreed(Breed $breed): self
+    {
+        $this->breeds->removeElement($breed);
 
         return $this;
     }
