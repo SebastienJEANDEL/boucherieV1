@@ -2,6 +2,8 @@
 
 namespace App\Entity;
 
+use DateTimeImmutable;
+
 use App\Repository\PieceRepository;
 use Doctrine\ORM\Mapping as ORM;
 
@@ -43,7 +45,7 @@ class Piece
     private $status;
 
     /**
-     * @ORM\Column(type="date")
+     * @ORM\Column(type="datetime_immutable")
      */
     private $publishedAt;
 
@@ -52,6 +54,16 @@ class Piece
      * @ORM\JoinColumn(nullable=false)
      */
     private $animal;
+
+          // A chaque fois qu'on fera un new Piece()
+    // On va setter la propriété published_At
+    public function __construct()
+    {
+       
+        $this->publishedAt = new DateTimeImmutable();
+      
+    }
+
 
     public function getId(): ?int
     {

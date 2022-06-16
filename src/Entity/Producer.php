@@ -3,6 +3,8 @@
 namespace App\Entity;
 
 use App\Repository\ProducerRepository;
+
+
 use Doctrine\Common\Collections\ArrayCollection;
 use Doctrine\Common\Collections\Collection;
 use Doctrine\ORM\Mapping as ORM;
@@ -53,6 +55,8 @@ class Producer
      * @ORM\ManyToMany(targetEntity=Breed::class, inversedBy="producers")
      */
     private $breeds;
+
+    
 
     public function __construct()
     {
