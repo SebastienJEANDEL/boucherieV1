@@ -74,39 +74,35 @@ class AnimalController extends AbstractController
         // Si cette méthode est exécutée dans l'url /post/add est appelée en méthode POST
         // C'est que le formulaire d'ajout a été soumis
         if ($request->isMethod('POST')) {
+            var_dump($request);
             // On va pouvoir récupérer les données saisies, et créer une nouvelle instance de l'entité POST
             $newAnimal = new Animal();
 
             // Name
-            $title = $request->request->get('title');
-            $newAnimal->setTitle( $title );
+            $name = $request->request->get('name');
+            $newAnimal->setName( $name );
 
             // Picture
-            $newAnimal->setBody($request->request->get('body'));
+            $newAnimal->setPicture($request->request->get('picture'));
 
             // Description  
+            $newAnimal->setDescription($request->request->get('description'));
             // Health_sheet
+            $newAnimal->setHealthSheet($request->request->get('healthSheet'));
             // Birthdate
-            // Slaughter_date          
+            $birthDate = new \DateTimeImmutable($request->request->get('birthDate'));
+            $newAnimal->setBirthdate($birthDate);
+            // Slaughter_date    
+            $slaughterDate = new \DateTimeImmutable($request->request->get('slaughterDate'));
+            $newAnimal->setSlaughterDate($slaughterDate);      
 
-            //https://www.php.net/manual/fr/class.datetimeimmutable.php
-            // la classe DateTimeImmutable nous vient de PHP, donc pour son FQCN, on met juste un antislash devant
-            $publishedDate = new \Date($request->request->get('published_at'));
-            // Nous sommes obligés de créer une instance de DateTimeImmutable pour remplir la propriété publishedAt du nouvel article
-            $newAnimal->setPublishedAt($publishedDate);
-
-            // De même pour la date de création
-            // Sans argument, cela crée une instance DateTimeImmutable de "maintenant"
-            /* $createdDate = new \DateTimeImmutable();
-            $newPost->setCreatedAt($createdDate); */
-            // ! Plus besoin, maintenant, ça se fait directement dans le constructeur de l'entité Post
-
+           
             //dump($newPost);
 
             // Maintenant on peut aller chercher l'entity manager
             $entityManager = $doctrine->getManager();
             // Prépare-toi à "persister" notre objet (req. INSERT INTO)
-            $entityManager->persist($newPost);
+            $entityManager->persist($newAnimal);
 
             // Avant de l'enregistrer en BDD
             $entityManager->flush();
@@ -118,28 +114,28 @@ class AnimalController extends AbstractController
             // On veut garder en session un message pour informer l'utilisateur que son article a bien été sauvegardé :
             $this->addFlash(
                 'success', // la "catégorie" de message
-                'Votre article a bien été ajouté' // le texte à afficher
+                'Votre animzl a bien été ajouté' // le texte à afficher
             );
 
             $this->addFlash(
                 'warning', // la "catégorie" de message
-                'Mais il faut le faire relire par un autre rédacteur' // le texte à afficher
+                'Mais il faut vérifier que les champs producer_id et breed_id contienne bien des id' // le texte à afficher
             );
 
             // redirection vers la liste des articles
-            return $this->redirectToRoute('app_post');
+            return $this->redirectToRoute('animal');
         }
         
-        return $this->render('post/add.html.twig');
+        return $this->render('animal/add.html.twig');
     }
 
 
      /**
      * Post delete
      * 
-     * @Route("/post/delete/{id}", name="app_post-delete", requirements={"id"="\d+"})
+     * @Route("/animal/delete/{id}", name="animal-delete", requirements={"id"="\d+"})
      */
-    public function delete($id, PostRepository $postRepository, ManagerRegistry $doctrine)
+    public function delete($id, AnimalRepository $postRepository, ManagerRegistry $doctrine)
     {
         // On va chercher l'enregistrement
         $post = $postRepository->find($id);
@@ -161,9 +157,9 @@ class AnimalController extends AbstractController
     /**
      * Post update
      * 
-     * @Route("/post/update/{id}", name="app_post-update", requirements={"id"="\d+"})
+     * @Route("/post/update/{id}", name="animal-update", requirements={"id"="\d+"})
      */
-    public function update($id, PostRepository $postRepository, ManagerRegistry $doctrine)
+    public function update($id, AnimalRepository $postRepository, ManagerRegistry $doctrine)
     {
         // On va chercher l'enregistrement
         $post = $postRepository->find($id);
