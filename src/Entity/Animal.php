@@ -3,6 +3,9 @@
 namespace App\Entity;
 
 use App\Repository\AnimalRepository;
+
+use DateTimeImmutable;
+
 use Doctrine\Common\Collections\ArrayCollection;
 use Doctrine\Common\Collections\Collection;
 use Doctrine\ORM\Mapping as ORM;
@@ -40,12 +43,12 @@ class Animal
     private $health_sheet;
 
     /**
-     * @ORM\Column(type="date")
+     * @ORM\Column(type="datetime_immutable")
      */
     private $birthdate;
 
     /**
-     * @ORM\Column(type="date")
+     * @ORM\Column(type="datetime_immutable")
      */
     private $slaughter_date;
 
@@ -122,24 +125,24 @@ class Animal
         return $this;
     }
 
-    public function getBirthdate(): ?\DateTimeInterface
+    public function getBirthdate(): ?\DateTimeImmutable
     {
         return $this->birthdate;
     }
 
-    public function setBirthdate(\DateTimeInterface $birthdate): self
+    public function setBirthdate(\DateTimeImmutable $birthdate): self
     {
         $this->birthdate = $birthdate;
 
         return $this;
     }
 
-    public function getSlaughterDate(): ?\DateTimeInterface
+    public function getSlaughterDate(): ?\DateTimeImmutable
     {
         return $this->slaughter_date;
     }
 
-    public function setSlaughterDate(\DateTimeInterface $slaughter_date): self
+    public function setSlaughterDate(\DateTimeImmutable $slaughter_date): self
     {
         $this->slaughter_date = $slaughter_date;
 

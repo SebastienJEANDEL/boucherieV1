@@ -13,17 +13,38 @@ donc soit /post/add en GET ou en POST.
 <form class="form" method="post">
 
     <div class="col-12 col-md-6 mb-3">
-        <label for="title" class="form-label">Titre</label>
-        <input type="text" class="form-control" id="title" name="title">
+        <label for="name" class="form-label">Nom de l'animal</label>
+        <input type="text" class="form-control" id="name" name="name">
     </div>
     <div class="col-12 col-md-6 mb-3">
-        <label for="body" class="form-label">Contenu</label>
-        <textarea class="form-control" id="body" name="body"></textarea>
+        <label for="picture" class="form-label">Photo de l'animal</label>
+        <textarea class="form-control" id="picture" name="picture"></textarea>
     </div>
     <div class="col-12 col-md-6 mb-3">
-        <label for="published_at" class="form-label">Date de publication</label>
-        <input type="text" name="published_at" id="published_at">
+        <label for="description" class="form-label">Description</label>
+        <textarea class="form-control" id="description" name="description"></textarea>
+    </div>
+     <div class="col-12 col-md-6 mb-3">
+        <label for="healthSheet" class="form-label">Carnet de santé</label>
+        <textarea class="form-control" id="healthSheet" name="healthSheet"></textarea>
+    </div>
+    <div class="col-12 col-md-6 mb-3">
+        <label for="birthDate" class="form-label">Date de Naissance</label>
+        <input type="text" name="birthDate" id="birthDate">
         <div class="form-text">yyyy-mm-dd hh:mm:ss</div>
+    </div>
+     <div class="col-12 col-md-6 mb-3">
+        <label for="slaughterDate" class="form-label">Date d'abattage'</label>
+        <input type="text" name="slaughterDate" id="slaughterDate">
+        <div class="form-text">yyyy-mm-dd hh:mm:ss</div>
+    </div>
+     <div class="col-12 col-md-6 mb-3">
+        <label for="producer" class="form-label">Producteur</label>
+        <textarea class="form-control" id="producer" name="producer"></textarea>
+    </div>
+     <div class="col-12 col-md-6 mb-3">
+        <label for="breed" class="form-label">Race</label>
+        <textarea class="form-control" id="breed" name="breed"></textarea>
     </div>
     <button class="btn btn-primary">Enregistrer</button>
 </form>

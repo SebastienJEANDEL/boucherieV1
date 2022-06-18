@@ -15,8 +15,11 @@ use Doctrine\Persistence\ManagerRegistry;
 // Pour récupérer les informations de la requête HTTP
 use Symfony\Component\HttpFoundation\Request;
 
-// Pour interagir avec notre Entité Post
+// Pour interagir avec notre Entité Animal
+
+use App\Entity\Breed;
 use App\Entity\Animal;
+use App\Entity\Producer;
 use DateTimeImmutable;
 
 class AnimalController extends AbstractController
@@ -74,7 +77,7 @@ class AnimalController extends AbstractController
         // Si cette méthode est exécutée dans l'url /post/add est appelée en méthode POST
         // C'est que le formulaire d'ajout a été soumis
         if ($request->isMethod('POST')) {
-            var_dump($request);
+           // dd($request);
             // On va pouvoir récupérer les données saisies, et créer une nouvelle instance de l'entité POST
             $newAnimal = new Animal();
 
@@ -94,10 +97,17 @@ class AnimalController extends AbstractController
             $newAnimal->setBirthdate($birthDate);
             // Slaughter_date    
             $slaughterDate = new \DateTimeImmutable($request->request->get('slaughterDate'));
-            $newAnimal->setSlaughterDate($slaughterDate);      
-
+            $newAnimal->setSlaughterDate($slaughterDate); 
+            // Producer
+            $producer= new Producer;
+            $producer->setName($request->request->get('producer'));
+            $newAnimal->setProducer($producer);
+            //Breed  
+            $breed = new Breed;  
+            $breed->setName($request->request->get('breed')) ;
+            $newAnimal->setBreed($breed);
            
-            //dump($newPost);
+            //dd($newAnimal);
 
             // Maintenant on peut aller chercher l'entity manager
             $entityManager = $doctrine->getManager();
@@ -114,7 +124,7 @@ class AnimalController extends AbstractController
             // On veut garder en session un message pour informer l'utilisateur que son article a bien été sauvegardé :
             $this->addFlash(
                 'success', // la "catégorie" de message
-                'Votre animzl a bien été ajouté' // le texte à afficher
+                'Votre animal a bien été ajouté' // le texte à afficher
             );
 
             $this->addFlash(
