@@ -65,6 +65,25 @@ class AppFixtures extends Fixture
        // Instaciation de l'usine de Faker
        $faker = Faker\Factory::create('fr_FR');
 
+               // Breed;
+        //Création de 20 races différentes
+        $breedsList=[];
+
+        for ($j=1;$j<21;$j++) {
+            //je crée un instance de Breed
+            $breed = new Breed;
+            //name
+            $breed->setName($faker->name());
+            //picture
+            $breed->setPicture('App/doc/'.$faker->name().'.png') ;
+            //advantage
+            $breed->setAdvantage($faker->realText(250));
+            //je rentre cette instance dans le tableau
+            $breedsList[]= $breed;
+            //je prépare l'insertion
+            $manager->persist($breed);
+        }
+
        //Création de 50 items de la Table Animal
        $animalsList=[];
 
@@ -87,6 +106,7 @@ class AppFixtures extends Fixture
            $slaughter =new DateTimeImmutable($faker->date());
            $animal->setSlaughterDate($slaughter) ;
            //producer
+           $animal->setBreed($breedsList[ mt_rand(0, count($breedsList) - 1)]);
            //breed
            //ajout de cette instance dans le tableau
            $animalsList[] = $animal;
@@ -94,9 +114,9 @@ class AppFixtures extends Fixture
            $manager->persist($animal);
        }
     
-        // $product = new Product();
+ 
         
-
+       //j'envoi la requete à la base de donnée
         $manager->flush();
     }
 }
