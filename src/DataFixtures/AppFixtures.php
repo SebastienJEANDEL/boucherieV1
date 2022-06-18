@@ -65,7 +65,31 @@ class AppFixtures extends Fixture
        // Instaciation de l'usine de Faker
        $faker = Faker\Factory::create('fr_FR');
 
-               // Breed;
+       //Producer
+       //Création de 10 éléments de la table Producer
+       $producersList = [];
+
+       for($k=1;$k<11;$k++){
+           //création insatnce de Producer
+           $newProducer = new Producer;
+           //Name
+           $newProducer->setName($faker->name());
+           //Picture
+           $newProducer->setPicture('App/doc/'.$faker->name().'.png') ;
+           //Adress
+           $newProducer->setAdress($faker->realText(100));
+           //Contact
+           $newProducer->setContact($faker->realText(50));
+           //Description
+           $newProducer->setDescription($faker->realText(250));
+
+           //je rentre dans le tableau
+           $producersList[] = $newProducer;
+           //je prépare l'envoi
+           $manager->persist($newProducer);
+           
+        }
+        // Breed;
         //Création de 20 races différentes
         $breedsList=[];
 
@@ -113,6 +137,20 @@ class AppFixtures extends Fixture
            //préparation pour envoi à la bdd
            $manager->persist($animal);
        }
+        //# Relation entre Breed et Producer ManyToMany
+
+        // Pour chaque Producer, je dois déterminer un nombre aléatoire de breeds à lui assigner
+        foreach($producersList as $key => $Producer)
+        {
+            // nbMaxBreeds contient ce nombre maximum de breed pour un Producer
+            $nbMaxBreeds = mt_rand(1,3);
+            for ($n=1; $n<=$nbMaxBreeds; $n++) {
+
+                // On cherche à mettre relier une breed aléatoirement à producer
+                $Producer->addBreed( $breedsList[ mt_rand(0, count($breedsList) - 1) ] );
+                $manager->persist($Producer);
+            }
+        }
     
  
         
