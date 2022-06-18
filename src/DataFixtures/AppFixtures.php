@@ -11,6 +11,8 @@ use App\Entity\Piece;
 use App\Entity\Producer;
 use App\Entity\Specie;
 
+use DateTimeImmutable;
+
 use Faker;
 
 use Doctrine\DBAL\Connection;
@@ -59,9 +61,41 @@ class AppFixtures extends Fixture
     {
        //! d'abord, on vide les tables de leurs données
        $this->truncate();
-        var_dump("coucou");
+       
+       // Instaciation de l'usine de Faker
+       $faker = Faker\Factory::create('fr_FR');
+
+       //Création de 50 items de la Table Animal
+       $animalsList=[];
+
+       for ($i=1;$i<51;$i++){
+
+            // créeation nouvelle instance Animal
+           $animal= new Animal;
+           //name
+           $animal->setName($faker->name()) ;
+           //picture
+           $animal->setPicture('App/doc/'.$faker->name().'.png') ;
+           //description
+           $animal->setDescription('App/doc/'.$faker->name().'.png') ;
+           //healthsheet
+           $animal->setHealthSheet($faker->name()) ;
+           //birthdate
+           $birthdate = new DateTimeImmutable($faker->date());
+           $animal->setBirthdate( $birthdate) ;
+           //slaughter_date
+           $slaughter =new DateTimeImmutable($faker->date());
+           $animal->setSlaughterDate($slaughter) ;
+           //producer
+           //breed
+           //ajout de cette instance dans le tableau
+           $animalsList[] = $animal;
+           //préparation pour envoi à la bdd
+           $manager->persist($animal);
+       }
+    
         // $product = new Product();
-        // $manager->persist($product);
+        
 
         $manager->flush();
     }
