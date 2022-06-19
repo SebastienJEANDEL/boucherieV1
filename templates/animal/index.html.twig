@@ -4,9 +4,9 @@
 
 {% block body %}
 
-    <h2>Liste des articles</h2>
+    <h2>Liste des animaux</h2>
 
-    <p><a href="{{ path('animal-add') }}" class="btn btn-success">Ajouter un article</a></p>
+    <p><a href="{{ path('animal-add') }}" class="btn btn-success">Ajouter un animal</a></p>
 
     <table class="table table-hoverable table-striped">
         <thead>
@@ -20,16 +20,17 @@
         </thead>
         <tbody>
         
+        
             {% for animal in listAnimal %}
 
                  <tr>
                     <th scope="row">{{ animal.id }}</th>
                     <td>
-                        <a href="{{ path('animal-show', {id: animal.id}) }}">{{ animal.title }}
+                        <a href="{{ path('animal-show', {id: animal.id}) }}">{{ animal.name }}
                         </a>
                     </td>
-                    <td>{{ animal.publishedAt|date("Y-m-d H:i") }}</td>
-                    <td>{% if animal.updatedAt %}{{ animal.updatedAt|date("Y-m-d H:i") }}{% endif %}</td>
+                    <td>{{ animal.birthdate|date("Y-m-d H:i") }}</td>
+                    
                     <td>
                         <a class="btn btn-sm btn-primary" href="{{ path('animal-update', {id: animal.id}) }}">Modifier</a>
 

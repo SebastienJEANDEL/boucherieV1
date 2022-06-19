@@ -1,4 +1,8 @@
 Ceci est un site de boucherie en ligne
+Pour le moment:
+On y retrouve la liste de tous les animaux, 
+le détail d'un animal
+
 
 A ce stade, le projet contient:
 
@@ -20,10 +24,15 @@ une relation ManyToOne entre Animal et Breed
 
 une relation ManyToMany entre Producer et Breed
 
-TODO:afficher ds templates: "liste des animaux" "animaux de race XX" "Races produites par le Producteur XX" "Producteurs qui produise la race XX" et essayer "Producteur de l'animal XX"
+affichage du template index (liste des animaux)
+affichage du template show (détail avec la race de l'animal)
+
+TODO:afficher ds templates: "animaux de race XX avec méthode Query Builder crée dans BreedRepository retournera un tableau et appelée depuis le BreedController" "Races produites par le Producteur XX avec méthode crée dans BreedRepository retournera un tableau et appelée depuis le BreedController" "Producteurs qui produise la race XX" et essayer "Producteur de l'animal XX"
 
 TODO:formulaire d'ajout d'un animal, d'une race et d'un producteur
 
 TODO: refaire certains fakers inappropriés
 
 TODO: stylisé un peu les templates
+
+TODO: attention en entrant la FK producerid dans Animal, celle ci doit etre égale à la même FK de sa breed_id

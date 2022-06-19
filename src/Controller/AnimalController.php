@@ -58,7 +58,8 @@ class AnimalController extends AbstractController
         if ($animal === null) {
             throw $this->createNotFoundException('Animal non trouvé.');
         }
-
+        //$breed = $animal->getBreed();
+        //var_dump($breed);
         return $this->render('animal/show.html.twig', [
             'animal' => $animal,
         ]);

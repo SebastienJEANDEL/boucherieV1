@@ -15,7 +15,7 @@
 
 <body>
     <header class="container">
-        <h1><a href="{{ path('animal_list') }}">Boucherie Séb</a></h1>
+        <h1><a href="{{ path('animal_list') }}">Page principale</a></h1>
     </header>
     <main class="container">
         <div class="row">
@@ -33,7 +33,8 @@
                     {% endfor %}
 
                 {% endfor %}
-
+                <p>Moi je suis dans le bloc body de Base et je ne bouge pas!!</p>
+                
                 {% block body %}{% endblock %}
             </div>
         </div>
