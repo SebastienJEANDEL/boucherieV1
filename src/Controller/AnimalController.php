@@ -15,12 +15,16 @@ use Doctrine\Persistence\ManagerRegistry;
 // Pour récupérer les informations de la requête HTTP
 use Symfony\Component\HttpFoundation\Request;
 
+//Pour interagir avec notre Formulaire Animal
+use App\Form\AnimalFormType;
+
 // Pour interagir avec notre Entité Animal
 
 use App\Entity\Breed;
 use App\Entity\Animal;
 use App\Entity\Producer;
 use DateTimeImmutable;
+use Symfony\Component\Form\Forms;
 
 class AnimalController extends AbstractController
 {
@@ -77,55 +81,13 @@ class AnimalController extends AbstractController
      */
     public function add (ManagerRegistry $doctrine, Request $request): Response
     {
-        
-        // Si cette méthode est exécutée dans l'url /post/add est appelée en méthode POST
-        // C'est que le formulaire d'ajout a été soumis
-        if ($request->isMethod('POST')) {
-           // dd($request);
-            // On va pouvoir récupérer les données saisies, et créer une nouvelle instance de l'entité POST
-            $newAnimal = new Animal();
-
-            // Name
-            $name = $request->request->get('name');
-            $newAnimal->setName( $name );
-
-            // Picture
-            $newAnimal->setPicture($request->request->get('picture'));
-
-            // Description  
-            $newAnimal->setDescription($request->request->get('description'));
-            // Health_sheet
-            $newAnimal->setHealthSheet($request->request->get('healthSheet'));
-            // Birthdate
-            $birthDate = new \DateTimeImmutable($request->request->get('birthDate'));
-            $newAnimal->setBirthdate($birthDate);
-            // Slaughter_date    
-            $slaughterDate = new \DateTimeImmutable($request->request->get('slaughterDate'));
-            $newAnimal->setSlaughterDate($slaughterDate); 
-            // Producer
-            $producer= new Producer;
-            $producer->setName($request->request->get('producer'));
-            $newAnimal->setProducer($producer);
-            //Breed  
-            $breed = new Breed;  
-            $breed->setName($request->request->get('breed')) ;
-            $newAnimal->setBreed($breed);
-           
-            //dd($newAnimal);
-
-            // Maintenant on peut aller chercher l'entity manager
-            $entityManager = $doctrine->getManager();
-            // Prépare-toi à "persister" notre objet (req. INSERT INTO)
-            $entityManager->persist($newAnimal);
-
-            // Avant de l'enregistrer en BDD
-            $entityManager->flush();
+            
+           // $formAnimal = AnimalFormType::create;
+            //dd($formAnimal);
+            
 
 
-            //dd($newPost);
-            // https://symfony.com/doc/5.4/components/http_foundation/sessions.html#flash-messages
-            // https://symfony.com/doc/5.4/controller.html#flash-messages
-            // On veut garder en session un message pour informer l'utilisateur que son article a bien été sauvegardé :
+            // On veut garder en session un message pour informer l'utilisateur que son animal a bien été sauvegardé :
             $this->addFlash(
                 'success', // la "catégorie" de message
                 'Votre animal a bien été ajouté' // le texte à afficher
@@ -137,8 +99,8 @@ class AnimalController extends AbstractController
             );
 
             // redirection vers la liste des articles
-            return $this->redirectToRoute('animal');
-        }
+           // return $this->redirectToRoute('animal');
+        
         
         return $this->render('animal/add.html.twig');
     }
