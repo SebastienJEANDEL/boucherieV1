@@ -8,13 +8,23 @@
 
     <p><a href="{{ path('animal-add') }}" class="btn btn-success">Ajouter un animal</a></p>
 
+    <form action="{{ path('animal_list') }}" method="POST" class="form">
+        <label for = "breed-select"><h3>voir uniquement les animaux de la race</h3></label>
+        <select name="breed" id="breed-select">
+        <option value="">--choisissez une race--</option>
+        {% for animal in listAnimal %}
+        <option value="{{ animal.breed.id }}">{{ animal.breed.name }}</option>
+        {% endfor %}
+        </select>
+    </form>
+
     <table class="table table-hoverable table-striped">
         <thead>
             <tr>
                 <th scope="col">#</th>
-                <th scope="col">Title</th>
-                <th scope="col">Date de publication</th>
-                <th scope="col">Modifié le</th>
+                <th scope="col">Nom de m'animal</th>
+                <th scope="col">Date de naissance</th>
+                <th scope="col"></th>
                 <th></th>
             </tr>
         </thead>
@@ -29,7 +39,7 @@
                         <a href="{{ path('animal-show', {id: animal.id}) }}">{{ animal.name }}
                         </a>
                     </td>
-                    <td>{{ animal.birthdate|date("Y-m-d H:i") }}</td>
+                    <td>{{ animal.birthdate|date("d-m-Y") }}</td>
                     
                     <td>
                         <a class="btn btn-sm btn-primary" href="{{ path('animal-update', {id: animal.id}) }}">Modifier</a>

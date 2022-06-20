@@ -38,6 +38,16 @@ class AnimalRepository extends ServiceEntityRepository
             $this->getEntityManager()->flush();
         }
     }
+    public function findAllAnimalsByBreed(int $idBreed):array
+    {
+        //dd('fction recherche appelée');
+        $results = $this->createQueryBuilder('m') 
+        ->Where('m.breed = '.$idBreed.'')
+            ->getQuery()
+            ->getResult();
+      //dd($results);
+        return $results;
+    }
 
 //    /**
 //     * @return Animal[] Returns an array of Animal objects

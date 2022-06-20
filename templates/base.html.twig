@@ -33,7 +33,9 @@
                     {% endfor %}
 
                 {% endfor %}
-                <p>Moi je suis dans le bloc body de Base et je ne bouge pas!!</p>
+                <h3><a href="{{ path('animal_list') }}">Liste des producteurs</a></h3>
+                <h3><a href="{{ path('animal_list') }}">Liste des races</a></h3>
+                
                 
                 {% block body %}{% endblock %}
             </div>

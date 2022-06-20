@@ -27,10 +27,13 @@ class AnimalController extends AbstractController
     /**
      * affiche la liste des articles de la table "Animal"
      * 
-     * @Route("/animal", name="animal_list")
+     * @Route("/animal", name="animal_list", methods={"POST","GET"})
      */
-    public function index(AnimalRepository $animalRepository): Response
+    public function index(AnimalRepository $animalRepository, Request $request): Response
     {
+        if ($request->isMethod('POST')) {
+            dd('coucou');
+        }
         $listAnimal = $animalRepository->findAll();
 
         return $this->render('animal/index.html.twig', [
@@ -138,6 +141,22 @@ class AnimalController extends AbstractController
         }
         
         return $this->render('animal/add.html.twig');
+    }
+
+    /**
+     * @Route("/filterByBreed/{id}", name="filter-breed" ,methods={"GET"}, requirements={"id"="\d+"})
+     * 
+     * @return Response
+     */
+    public function filterByBreedId(int $id,AnimalRepository $animalRepository): Response
+    {
+        $animalsList = $animalRepository->findAllAnimalsByBreed($id);
+        
+        // On transmet à notre vue la liste des animaux
+        return $this->render(
+            'animal/index.html.twig',
+            ["listAnimal" => $animalsList]
+        );
     }
 
 

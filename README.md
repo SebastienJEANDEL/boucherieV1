@@ -27,12 +27,15 @@ une relation ManyToMany entre Producer et Breed
 affichage du template index (liste des animaux)
 affichage du template show (détail avec la race de l'animal)
 
-TODO:afficher ds templates: "animaux de race XX avec méthode Query Builder crée dans BreedRepository retournera un tableau et appelée depuis le BreedController" "Races produites par le Producteur XX avec méthode crée dans BreedRepository retournera un tableau et appelée depuis le BreedController" "Producteurs qui produise la race XX" et essayer "Producteur de l'animal XX"
+Querybuilder dans AnimalRepository OK, appelé depuis le controlleur AnimalController. Cependant l'adresse doit être écrite en dur dans l'url "/filterByBreed/{id}", pour le moment aucun lien n'appelle cette route. J'ai commencé à mettre un if POST dans la route de l'index animal
+
+TODO:afficher ds templates: "Producteurs qui produisent la race XX avec méthode crée dans ProducerRepository" et essayer "Producteur de l'animal XX"
 
 TODO:formulaire d'ajout d'un animal, d'une race et d'un producteur
+        ATTENTION:  en entrant la FK producerid dans Animal, celle ci doit etre égale à la même FK de sa breed_id
 
 TODO: refaire certains fakers inappropriés
 
 TODO: stylisé un peu les templates
 
-TODO: attention en entrant la FK producerid dans Animal, celle ci doit etre égale à la même FK de sa breed_id
+
