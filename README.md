@@ -2,6 +2,7 @@ Ceci est un site de boucherie en ligne
 Pour le moment:
 On y retrouve la liste de tous les animaux, 
 le détail d'un animal
+la liste de animaux d'une race définie par son id
 
 
 A ce stade, le projet contient:
@@ -27,12 +28,15 @@ une relation ManyToMany entre Producer et Breed
 affichage du template index (liste des animaux)
 affichage du template show (détail avec la race de l'animal)
 
-Querybuilder dans AnimalRepository OK, appelé depuis le controlleur AnimalController. Cependant l'adresse doit être écrite en dur dans l'url "/filterByBreed/{id}", pour le moment aucun lien n'appelle cette route. J'ai commencé à mettre un if POST dans la route de l'index animal
+Querybuilder dans AnimalRepository OK, appelé depuis le controlleur AnimalController. Cependant l'adresse doit être écrite en dur dans l'url "/filterByBreed/{id}", pour le moment aucun lien n'appelle cette route. J'ai commencé à mettre un if POST dans la route de l'index animal. Je reverrai ça après avoir créé un form ajout animal.
 
-TODO:afficher ds templates: "Producteurs qui produisent la race XX avec méthode crée dans ProducerRepository" et essayer "Producteur de l'animal XX"
 
 TODO:formulaire d'ajout d'un animal, d'une race et d'un producteur
         ATTENTION:  en entrant la FK producerid dans Animal, celle ci doit etre égale à la même FK de sa breed_id
+
+TODO:afficher ds templates: "Producteurs qui produisent la race XX avec méthode crée dans ProducerRepository" et essayer "Producteur de l'animal XX"
+
+TODO: conditionner la liste de tous les animaux, si un filtre "race" a été sélectionné
 
 TODO: refaire certains fakers inappropriés
 

@@ -9,9 +9,9 @@
     <p><a href="{{ path('animal-add') }}" class="btn btn-success">Ajouter un animal</a></p>
 
     <form action="{{ path('animal_list') }}" method="POST" class="form">
-        <label for = "breed-select"><h3>voir uniquement les animaux de la race</h3></label>
+        <label for = "breed-select"><h3>Ne voir que les animaux de la race</h3></label>
         <select name="breed" id="breed-select">
-        <option value="">--choisissez une race--</option>
+        <option value="">--toutes les races--</option>
         {% for animal in listAnimal %}
         <option value="{{ animal.breed.id }}">{{ animal.breed.name }}</option>
         {% endfor %}
