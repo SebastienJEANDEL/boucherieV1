@@ -33,19 +33,17 @@ class AnimalController extends AbstractController
     /**
      * affiche la liste des articles de la table "Animal"
      * 
-     *  @Route("/", name="default", methods={"POST","GET"})
-     * @Route("/animal", name="animal_list", methods={"POST","GET"})
+     *  @Route("/", name="home", methods={"GET"})
+     * @Route("/animal", name="animal_list", methods={"GET"})
      */
-    public function index(AnimalRepository $animalRepository, Request $request): Response
+    public function index(AnimalRepository $animalRepository): Response
     {
-        if ($request->isMethod('POST')) {
-            dd('coucou');
-        }
-        $listAnimal = $animalRepository->findAll();
+        
+        
+    
 
         return $this->render('animal/index.html.twig', [
-            'controller_name' => 'AnimalController',
-            'listAnimal' => $listAnimal
+            'listAnimal' => $animalRepository->findAll(),
         ]);
     }
 
@@ -57,12 +55,12 @@ class AnimalController extends AbstractController
      * 
      * @Route("/animal/{id}", name="animal-show", requirements={"id"="\d+"})
      */
-    public function show(Animal $animal, ManagerRegistry $doctrine)
+    public function show($id, ManagerRegistry $doctrine)
     {
         // Alternative pour accéder au Repository de l'entité Animal
         $animalRepository = $doctrine->getRepository(Animal::class);
 
-        $animal = $animalRepository->find($animal);
+        $animal = $animalRepository->find($id);
 
         // Post not found ?
         if ($animal === null) {
@@ -84,9 +82,10 @@ class AnimalController extends AbstractController
      */
     public function add ( ManagerRegistry $doctrine, Request $request, AnimalRepository $animalRepository): Response
     {
+            
             $newAnimal = new Animal();
             $form = $this->createForm(AnimalFormType::class,$newAnimal);
-
+           // dd($form);
            // récupération de la réponse
            $form->handleRequest($request);
 
@@ -94,11 +93,14 @@ class AnimalController extends AbstractController
            if($form->isSubmitted() && $form->isValid())
            {
                 $animalRepository->add($newAnimal, true);
-                dump($newAnimal);
+                //dd($newAnimal);
                       $this->addFlash(
                 'success', // la "catégorie" de message
                 'Votre animal a bien été ajouté' // le texte à afficher
+                // redirection vers la page movieShow
+              
             );
+            return $this->redirectToRoute('home');
            }
 
             // On veut garder en session un message pour informer l'utilisateur que son animal a bien été sauvegardé :
@@ -180,13 +182,13 @@ class AnimalController extends AbstractController
         }
 
         // On modifie la date de mise à jour à la date actuelle
-        $post->setUpdatedAt(new DateTimeImmutable());
+        //$post->setUpdatedAt(new DateTimeImmutable());
 
         // On le met à jour via le Manager
         $entityManager = $doctrine->getManager();
         // Exécute la requête d'UPDATE
         $entityManager->flush();
 
-        return $this->redirectToRoute('app_post');
+        return $this->redirectToRoute('default');
     }
 }

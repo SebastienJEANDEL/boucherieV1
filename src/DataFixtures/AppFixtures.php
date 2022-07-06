@@ -132,6 +132,7 @@ class AppFixtures extends Fixture
            //producer
            $animal->setBreed($breedsList[ mt_rand(0, count($breedsList) - 1)]);
            //breed
+           
            //ajout de cette instance dans le tableau
            $animalsList[] = $animal;
            //préparation pour envoi à la bdd

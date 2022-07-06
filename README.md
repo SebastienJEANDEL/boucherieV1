@@ -6,7 +6,7 @@ la liste de animaux d'une race définie par son id
 
 Le formulaire d'ajout d'un animal (non stylisé et non déclaré dans AnimalController) 
 
-
+DONE:
 A ce stade, le projet contient:
 
 les 5 tables
@@ -30,7 +30,9 @@ une relation ManyToMany entre Producer et Breed
 affichage du template index (liste des animaux)
 affichage du template show (détail avec la race de l'animal)
 
-Querybuilder dans AnimalRepository OK, appelé depuis le controlleur AnimalController. Cependant l'adresse doit être écrite en dur dans l'url "/filterByBreed/{id}", pour le moment aucun lien n'appelle cette route. J'ai commencé à mettre un if POST dans la route de l'index animal. Je reverrai ça après avoir créé un form ajout animal.
+Querybuilder dans AnimalRepository OK, appelé depuis le controlleur AnimalController.TODO: Cependant l'adresse doit être écrite en dur dans l'url "/filterByBreed/{id}", pour le moment aucun lien n'appelle cette route. J'ai commencé à mettre un if POST dans la route de l'index animal. Je reverrai ça après avoir créé un form ajout animal.
+
+ Users dont l'admin Seb ont été créés
 
 
 TODO:formulaire d'ajout d'un animal, d'une race et d'un producteur
@@ -43,5 +45,17 @@ TODO: conditionner la liste de tous les animaux, si un filtre "race" a été sé
 TODO: refaire certains fakers inappropriés
 
 TODO: stylisé un peu les templates
+
+
+
+TODO: donner des droits
+
+TODO: créer un voter (un manager qui s'en va dans un mois a les mêmes droits qu'on user)
+
+TODO: ecouteur Kernel: compter le nombre de vue de chaque pièce
+
+TODO: commande: si je n'ai pas d'action sur une pièce (aucune vue), son status doit passer en promo (status 2)
+
+TODO: récupérer les image d'animaux issues d'une API externe
 
 
