@@ -4,6 +4,8 @@ On y retrouve la liste de tous les animaux,
 le détail d'un animal
 la liste de animaux d'une race définie par son id
 
+Le formulaire d'ajout d'un animal (non stylisé et non déclaré dans AnimalController) 
+
 
 A ce stade, le projet contient:
 

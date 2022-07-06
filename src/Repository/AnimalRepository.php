@@ -24,8 +24,9 @@ class AnimalRepository extends ServiceEntityRepository
     public function add(Animal $entity, bool $flush = false): void
     {
         $this->getEntityManager()->persist($entity);
-
+       
         if ($flush) {
+           // dd('flush ok');
             $this->getEntityManager()->flush();
         }
     }

@@ -28,9 +28,12 @@ use Symfony\Component\Form\Forms;
 
 class AnimalController extends AbstractController
 {
+   
+    
     /**
      * affiche la liste des articles de la table "Animal"
      * 
+     *  @Route("/", name="default", methods={"POST","GET"})
      * @Route("/animal", name="animal_list", methods={"POST","GET"})
      */
     public function index(AnimalRepository $animalRepository, Request $request): Response
@@ -54,12 +57,12 @@ class AnimalController extends AbstractController
      * 
      * @Route("/animal/{id}", name="animal-show", requirements={"id"="\d+"})
      */
-    public function show($id, ManagerRegistry $doctrine)
+    public function show(Animal $animal, ManagerRegistry $doctrine)
     {
         // Alternative pour accéder au Repository de l'entité Animal
         $animalRepository = $doctrine->getRepository(Animal::class);
 
-        $animal = $animalRepository->find($id);
+        $animal = $animalRepository->find($animal);
 
         // Post not found ?
         if ($animal === null) {
@@ -79,30 +82,45 @@ class AnimalController extends AbstractController
      *
      * @return Response
      */
-    public function add (ManagerRegistry $doctrine, Request $request): Response
+    public function add ( ManagerRegistry $doctrine, Request $request, AnimalRepository $animalRepository): Response
     {
-            
-           // $formAnimal = AnimalFormType::create;
-            //dd($formAnimal);
-            
+            $newAnimal = new Animal();
+            $form = $this->createForm(AnimalFormType::class,$newAnimal);
 
+           // récupération de la réponse
+           $form->handleRequest($request);
 
-            // On veut garder en session un message pour informer l'utilisateur que son animal a bien été sauvegardé :
-            $this->addFlash(
+           // si le formulaire a été soumis et que les données sont valides
+           if($form->isSubmitted() && $form->isValid())
+           {
+                $animalRepository->add($newAnimal, true);
+                dump($newAnimal);
+                      $this->addFlash(
                 'success', // la "catégorie" de message
                 'Votre animal a bien été ajouté' // le texte à afficher
             );
+           }
 
-            $this->addFlash(
-                'warning', // la "catégorie" de message
-                'Mais il faut vérifier que les champs producer_id et breed_id contienne bien des id' // le texte à afficher
-            );
+            // On veut garder en session un message pour informer l'utilisateur que son animal a bien été sauvegardé :
+          //  $this->addFlash(
+             //   'success', // la "catégorie" de message
+            //    'Votre animal a bien été ajouté' // le texte à afficher
+          //  );
+
+          //  $this->addFlash(
+          //      'warning', // la "catégorie" de message
+          //      'Mais il faut vérifier que les champs producer_id et breed_id contienne bien des id' // le texte à afficher
+         //   );
 
             // redirection vers la liste des articles
            // return $this->redirectToRoute('animal');
         
         
-        return $this->render('animal/add.html.twig');
+        return $this->renderForm('animal/add.html.twig',
+                [
+                    'form' => $form
+                ] 
+            );
     }
 
     /**
