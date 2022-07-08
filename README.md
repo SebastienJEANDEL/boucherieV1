@@ -34,9 +34,24 @@ Querybuilder dans AnimalRepository OK, appelé depuis le controlleur AnimalContr
 
  Users dont l'admin Seb ont été créés
 
+ DONE: donner des droits: pour faire simple: 
+        un anonyme peut voir la liste de tous les animaux,
+        un user peut voir la page d'un animal, ne peut ni supprimer, ni ajouter un animal(pour le test, on laissera le bouton vert "ajouter un animal" visible,
+        un manager peut ajouter un animal mais ne peut ni modifier supprimer, 
+        le role admin ira partout
+les autorisations pour user sont définies security.yaml
+les autorisations pour manager sont définies en annotation de la méthode
+les autorisations pour admin sont définies dans dans la méthode
+
+DONE: créer un voter (un manager ne peut plus ajouter d'animal après 14h00) TODO:activer ce voter depuis add AnimalController. Trouver comment transmettre le $user
+
+DONE: service: une méthode qui incremente le nombre de vue. 
+
 
 TODO:formulaire d'ajout d'un animal, d'une race et d'un producteur
         ATTENTION:  en entrant la FK producerid dans Animal, celle ci doit etre égale à la même FK de sa breed_id
+        Il faudra faire un where dans producer et mettre le texte "choisissez d'abord une race"
+        Il faudra une première submission de formulaire quand Breed sera définie
 
 TODO:afficher ds templates: "Producteurs qui produisent la race XX avec méthode crée dans ProducerRepository" et essayer "Producteur de l'animal XX"
 
@@ -46,15 +61,9 @@ TODO: refaire certains fakers inappropriés
 
 TODO: stylisé un peu les templates
 
-
-
-TODO: donner des droits
-
-TODO: créer un voter (un manager qui s'en va dans un mois a les mêmes droits qu'on user)
-
 TODO: ecouteur Kernel: compter le nombre de vue de chaque pièce
 
-TODO: commande: si je n'ai pas d'action sur une pièce (aucune vue), son status doit passer en promo (status 2)
+TODO: service: si j'ai plus de cing vue sur une pièce , son status doit passer en promo (status 2)
 
 TODO: récupérer les image d'animaux issues d'une API externe
 

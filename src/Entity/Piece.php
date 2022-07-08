@@ -55,6 +55,11 @@ class Piece
      */
     private $animal;
 
+    /**
+     * @ORM\Column(type="integer", nullable=true)
+     */
+    private $compteurVue;
+
           // A chaque fois qu'on fera un new Piece()
     // On va setter la propriété published_At
     public function __construct()
@@ -150,6 +155,18 @@ class Piece
     public function setAnimal(?Animal $animal): self
     {
         $this->animal = $animal;
+
+        return $this;
+    }
+
+    public function getCompteurVue(): ?int
+    {
+        return $this->compteurVue;
+    }
+
+    public function setCompteurVue(?int $compteurVue): self
+    {
+        $this->compteurVue = $compteurVue;
 
         return $this;
     }

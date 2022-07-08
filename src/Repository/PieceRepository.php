@@ -2,6 +2,7 @@
 
 namespace App\Repository;
 
+use App\Entity\Animal;
 use App\Entity\Piece;
 use Doctrine\Bundle\DoctrineBundle\Repository\ServiceEntityRepository;
 use Doctrine\Persistence\ManagerRegistry;
@@ -39,20 +40,17 @@ class PieceRepository extends ServiceEntityRepository
         }
     }
 
-//    /**
-//     * @return Piece[] Returns an array of Piece objects
-//     */
-//    public function findByExampleField($value): array
-//    {
-//        return $this->createQueryBuilder('p')
-//            ->andWhere('p.exampleField = :val')
-//            ->setParameter('val', $value)
-//            ->orderBy('p.id', 'ASC')
-//            ->setMaxResults(10)
-//            ->getQuery()
-//            ->getResult()
-//        ;
-//    }
+    /**
+     * @return Piece[] Returns an array of Piece objects
+     */
+    public function findByAnimalId($idAnimal): array
+    {
+        $entityManager = $this->getEntityManager();
+        $query = $entityManager->createQuery('
+            SELECT m FROM App\Entity\Piece m WHERE m.animal = '.$idAnimal.'
+        ');
+        return $query->getResult();        ;
+    }
 
 //    public function findOneBySomeField($value): ?Piece
 //    {

@@ -23,8 +23,13 @@ use App\Form\AnimalFormType;
 use App\Entity\Breed;
 use App\Entity\Animal;
 use App\Entity\Producer;
+use App\Entity\User;
+use App\Repository\PieceRepository;
 use DateTimeImmutable;
 use Symfony\Component\Form\Forms;
+
+//Pour donner des autorisation dans les annotations des méthodes
+use Sensio\Bundle\FrameworkExtraBundle\Configuration\IsGranted;
 
 class AnimalController extends AbstractController
 {
@@ -55,7 +60,7 @@ class AnimalController extends AbstractController
      * 
      * @Route("/animal/{id}", name="animal-show", requirements={"id"="\d+"})
      */
-    public function show($id, ManagerRegistry $doctrine)
+    public function show($id, ManagerRegistry $doctrine, PieceRepository $pieceRepository)
     {
         // Alternative pour accéder au Repository de l'entité Animal
         $animalRepository = $doctrine->getRepository(Animal::class);
@@ -66,23 +71,29 @@ class AnimalController extends AbstractController
         if ($animal === null) {
             throw $this->createNotFoundException('Animal non trouvé.');
         }
+        //liste des pièces de cette animal
+        $piecesList = $pieceRepository->findByAnimalId($id);
+       
         //$breed = $animal->getBreed();
         //var_dump($breed);
         return $this->render('animal/show.html.twig', [
             'animal' => $animal,
+            'piecesList'=> $piecesList,
         ]);
     }
 
     /**
      * @Route("/animal/add", name="animal-add", methods={"POST","GET"})
-     * 
-     * @todo faire les vérifications des données récupérées après soumission du formulaire
-     *
+     *      
+     *@IsGranted("ROLE_MANAGER")
      * @return Response
      */
     public function add ( ManagerRegistry $doctrine, Request $request, AnimalRepository $animalRepository): Response
     {
             
+
+          //TODO: $this->denyAccessUnlessGranted('MOVIE_EDIT_1400', $user);
+
             $newAnimal = new Animal();
             $form = $this->createForm(AnimalFormType::class,$newAnimal);
            // dd($form);
@@ -101,23 +112,7 @@ class AnimalController extends AbstractController
               
             );
             return $this->redirectToRoute('home');
-           }
-
-            // On veut garder en session un message pour informer l'utilisateur que son animal a bien été sauvegardé :
-          //  $this->addFlash(
-             //   'success', // la "catégorie" de message
-            //    'Votre animal a bien été ajouté' // le texte à afficher
-          //  );
-
-          //  $this->addFlash(
-          //      'warning', // la "catégorie" de message
-          //      'Mais il faut vérifier que les champs producer_id et breed_id contienne bien des id' // le texte à afficher
-         //   );
-
-            // redirection vers la liste des articles
-           // return $this->redirectToRoute('animal');
-        
-        
+           }        
         return $this->renderForm('animal/add.html.twig',
                 [
                     'form' => $form
@@ -145,10 +140,11 @@ class AnimalController extends AbstractController
      /**
      * Post delete
      * 
-     * @Route("/animal/delete/{id}", name="animal-delete", requirements={"id"="\d+"})
+     * @Route("/animal/delete/{id}", name="animal-delete", requirements={"id"="\d+"}, methods={"GET", "POST"})
      */
     public function delete($id, AnimalRepository $postRepository, ManagerRegistry $doctrine)
     {
+        $this->denyAccessUnlessGranted('ROLE_ADMIN');
         // On va chercher l'enregistrement
         $post = $postRepository->find($id);
 
@@ -173,6 +169,7 @@ class AnimalController extends AbstractController
      */
     public function update($id, AnimalRepository $postRepository, ManagerRegistry $doctrine)
     {
+        $this->denyAccessUnlessGranted('ROLE_ADMIN');
         // On va chercher l'enregistrement
         $post = $postRepository->find($id);
 
@@ -189,6 +186,6 @@ class AnimalController extends AbstractController
         // Exécute la requête d'UPDATE
         $entityManager->flush();
 
-        return $this->redirectToRoute('default');
+        return $this->render('animal/wip.html.twig');
     }
 }

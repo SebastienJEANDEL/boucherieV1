@@ -23,7 +23,7 @@ class Animal
      */
     private $id;
 
-    /*
+    /** 
      * @ORM\Column(type="string", length=255)
      * @Assert\NotBlank
      */
@@ -31,6 +31,7 @@ class Animal
 
     /**
      * @ORM\Column(type="string", length=255)
+    
      */
     private $picture;
 
@@ -79,17 +80,7 @@ class Animal
         return $this->id;
     }
 
-    public function getName(): ?string
-    {
-        return $this->name;
-    }
-
-    public function setName(string $name): self
-    {
-        $this->name = $name;
-
-        return $this;
-    }
+   
 
     public function getPicture(): ?string
     {
@@ -201,6 +192,18 @@ class Animal
     public function setBreed(?Breed $breed): self
     {
         $this->breed = $breed;
+
+        return $this;
+    }
+
+    public function getName(): ?string
+    {
+        return $this->name;
+    }
+
+    public function setName(string $name): self
+    {
+        $this->name = $name;
 
         return $this;
     }

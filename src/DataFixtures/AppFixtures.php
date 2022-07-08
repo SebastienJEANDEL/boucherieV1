@@ -65,6 +65,7 @@ class AppFixtures extends Fixture
        // Instaciation de l'usine de Faker
        $faker = Faker\Factory::create('fr_FR');
 
+      
        //Producer
        //Création de 10 éléments de la table Producer
        $producersList = [];
@@ -130,14 +131,42 @@ class AppFixtures extends Fixture
            $slaughter =new DateTimeImmutable($faker->date());
            $animal->setSlaughterDate($slaughter) ;
            //producer
-           $animal->setBreed($breedsList[ mt_rand(0, count($breedsList) - 1)]);
-           //breed
            
+           //breed
+           $animal->setBreed($breedsList[ mt_rand(0, count($breedsList) - 1)]);
            //ajout de cette instance dans le tableau
            $animalsList[] = $animal;
            //préparation pour envoi à la bdd
            $manager->persist($animal);
        }
+
+        //Piece
+        $totalPiecesList = [];
+        //Création de 500 Pièces
+        for($h=1;$h<501;$h++){
+             //création insatnce de Producer
+             $newPiece = new Piece;
+             //Name
+             $newPiece->setName($faker->name());
+             //Price
+             $newPiece->setPrice(4.99);
+             //Category
+             $newPiece->setCategory('steack');
+             //Weight
+             $newPiece->setWeight(899);
+             //Status
+             $newPiece->setStatus(1);
+             //AnimalId
+             $newPiece->setAnimal( $animalsList[mt_rand(0, count($animalsList) - 1)]);
+             //compteur de vues
+             $newPiece->setCompteurVue(0);
+ 
+             //je rentre dans le tableau
+             $totalPiecesList = $newPiece;
+             //je prépare l'envoi
+             $manager->persist($newPiece);
+         }
+ 
         //# Relation entre Breed et Producer ManyToMany
 
         // Pour chaque Producer, je dois déterminer un nombre aléatoire de breeds à lui assigner

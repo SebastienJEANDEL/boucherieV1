@@ -14,7 +14,43 @@
  <span class="badge bg-warning text-dark">Race de l'animal: {{ animal.breed.name }}</span>
 
 </p>
+<h3>Voici les pièces de cet animal</h3>
+ <table class="table table-hoverable table-striped">
+        <thead>
+            <tr>
+                <th scope="col">Numéro de la pièce</th>
+                <th scope="col">Nom de la pièce</th>
+                <th scope="col">Prix</th>
+                <th scope="col">Poids</th>  
+                <th scope="col">Status</th>               
+                <th scope="col">Nombre de vue(s)</th> 
+            </tr>
+        </thead>
+        <tbody>
+        
+        
+            {% for piece in piecesList %}
+               
+                 <tr>
+                    <th scope="row">{{ piece.id }}</th>
+                    <td><a href="{{ path('piece-show', {id: piece.id}) }}">{{ piece.name }}</a></td>
+                        
+                    <td>{{ piece.price }}</td>
+                    <td>{{ piece.weight }}</td>
+                    <td>{{ piece.status }}</td>
+                    <td>{{ piece.compteurVue }}</td>
+                    
+                </tr>
 
+            {% else %}
+                <tr>
+                    <th scope="row" colspan="5">
+                        Pas de pièce bizarrre ? Cet animal aurait du être supprimé
+                    </th>
+                </tr>
+            {% endfor %}
+        </tbody>
+    </table>
 
 
 {% endblock %}
